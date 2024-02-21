@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import BlogPost from "./BlogPost.jsx";
 
 export default function Home() {
     const [blogPosts, setBlogPosts] = useState([]);
@@ -13,19 +14,13 @@ export default function Home() {
     return (
         <div className="flex flex-wrap">
             {blogPosts.map(post => (
-                <div key={post.id} className="m-2 p-2 border">
-                    <h2>{post.title}</h2>
-                    <p>{post.content}</p>
-                    <h3>Comments:</h3>
-                    <div className="flex">
-                        {post.comments.map(comment => (
-                            <div key={comment.id} className="m-2 p-2 border">
-                                <p>{comment.content}</p>
-                                {/* Add other fields as needed */}
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <BlogPost
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    content={post.content}
+                    comments={post.comments}
+                />
             ))}
         </div>
     );
