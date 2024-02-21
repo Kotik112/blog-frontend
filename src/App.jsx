@@ -5,10 +5,10 @@ import Home from "./components/Home.jsx";
 import YourPosts from "./components/YourPosts.jsx";
 import AboutUs from "./components/AboutUs.jsx";
 import Contact from "./components/Contact.jsx";
+import CommentForm from "./components/CommentForm.jsx";
 
 
 export default function App() {
-
     return (
         <Router>
             <>
@@ -19,6 +19,7 @@ export default function App() {
                     <Route path="/your-posts" element={<YourPosts />} />
                     <Route path="/about-us" element={<AboutUs />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/leave-comment" element={<CommentForm />} />
                 </Routes>
             </>
         </Router>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import BlogPost from "./BlogPost.jsx";
+import PageBar from "./PageBar.jsx";
 
 export default function Home() {
     const [blogPosts, setBlogPosts] = useState([]);
@@ -12,7 +13,7 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="flex flex-wrap">
+        <div className="flex flex-col">
             {blogPosts.map(post => (
                 <BlogPost
                     key={post.id}
@@ -22,7 +23,9 @@ export default function Home() {
                     comments={post.comments}
                 />
             ))}
+            <PageBar />
         </div>
+
     );
 }
 
