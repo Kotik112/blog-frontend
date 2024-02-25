@@ -4,16 +4,26 @@ import PageBar from "./PageBar.jsx";
 
 export default function Home() {
     const [blogPosts, setBlogPosts] = useState([]);
+    const [totalPages, setTotalPages] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/v1/blog')
+        fetch(`http://localhost:8080/api/v1/blog?page=${currentPage}`)
             .then(response => response.json())
-            .then(data => setBlogPosts(data))
+            .then(data => {
+                setBlogPosts(data.content)
+                setTotalPages(data.totalPages)
+                console.log(currentPage)
+            })
             .catch(error => console.error('Error fetching blog posts:', error));
-    }, []);
+    }, [currentPage]);
+
+    const goToPage = (pageNumber) => {
+        setCurrentPage(pageNumber)
+    }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col " style={{marginBottom: "100px"}}>
             {blogPosts.map(post => (
                 <BlogPost
                     key={post.id}
@@ -23,9 +33,11 @@ export default function Home() {
                     comments={post.comments}
                 />
             ))}
-            <PageBar />
+            <PageBar
+                currentPage={currentPage}
+                totalPages={totalPages}
+                goToPage={goToPage}
+            />
         </div>
-
     );
 }
-

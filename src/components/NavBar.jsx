@@ -3,7 +3,7 @@ import blogLogo from "../assets/blog-logo.svg"
 
 export default function NavBar() {
     return (
-        <nav className="bg-white border-gray-200 dark:bg-gray-900">
+        <nav className="bg-white border-gray-200 dark:bg-gray-900 sticky top-0 z-10">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={ blogLogo } className="h-8" alt="Blog Logo"/>

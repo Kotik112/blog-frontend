@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Comment from "./Comment.jsx";
-import {Card} from "flowbite-react";
 
 export default function BlogPost({ id, comments, title, content }) {
     const navigate = useNavigate();
