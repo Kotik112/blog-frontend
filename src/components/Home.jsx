@@ -26,8 +26,10 @@ export default function Home() {
         <div className="flex flex-col " style={{marginBottom: "100px"}}>
             {blogPosts.map(post => (
                 <BlogPost
+
                     key={post.id}
                     id={post.id}
+                    image={post.image}
                     title={post.title}
                     content={post.content}
                     comments={post.comments}

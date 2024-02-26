@@ -1,17 +1,50 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Comment from "./Comment.jsx";
+import { useState, useEffect } from "react";
 
-export default function BlogPost({ id, comments, title, content }) {
+export default function BlogPost({ id, image, comments, title, content }) {
     const navigate = useNavigate();
+    const [imageData, setImageData] = useState(null);
+
+    useEffect(() => {
+        if (image) {
+            fetchImage(image.id);
+        }
+    }, [image]);
+
+    const fetchImage = async (imageId) => {
+        try {
+            const response = await fetch(`/api/v1/images/${imageId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": 'application/octet-stream'
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch image');
+            }
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+            console.log("Generated Image URL:", imageUrl);
+            setImageData(imageUrl);
+        } catch (error) {
+            console.error('Error fetching image:', error);
+        }
+    };
 
     const handleLeaveCommentClick = () => {
-        console.log('Navigating to leave-comment with postId:', id);
         navigate(`/leave-comment?blogPostId=${id}`);
     };
 
     return (
         <div key={id} className="mx-auto my-1 border-2 p-2" style={{ width: "600px"}}>
+            {imageData && (
+                <div>
+                    <h3><b>Image:</b></h3>
+                    <img src={imageData} alt={image.name} style={{ maxWidth: '100%' }} />
+                </div>
+            )}
             <h2><b>Title:</b> {title}</h2>
             <h2><b>Content:</b> {content}</h2>
             {comments.length > 0 && (
@@ -34,6 +67,12 @@ export default function BlogPost({ id, comments, title, content }) {
 
 BlogPost.propTypes = {
     id: PropTypes.number.isRequired,
+    image: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        createdAt: PropTypes.string.isRequired
+    }),
     comments: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         content: PropTypes.string.isRequired
