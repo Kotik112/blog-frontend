@@ -11,9 +11,10 @@ export default function Home() {
         fetch(`http://localhost:8080/api/v1/blog?page=${currentPage}`)
             .then(response => response.json())
             .then(data => {
+                console.log("Fetched totalPages:", data.totalPages, "for currentPage:", currentPage);
                 setBlogPosts(data.content)
                 setTotalPages(data.totalPages)
-                console.log(currentPage)
+                //console.log("Current page = " + currentPage)
             })
             .catch(error => console.error('Error fetching blog posts:', error));
     }, [currentPage]);

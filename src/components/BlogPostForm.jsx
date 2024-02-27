@@ -5,6 +5,7 @@ export default function BlogPostForm() {
         title: '',
         content: ''
     });
+    const [file, setFile] = useState(null);
 
     // Function to handle input changes
     const handleInputChange = (e) => {
@@ -15,17 +16,27 @@ export default function BlogPostForm() {
         }));
     };
 
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0])
+    }
+
     // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const submitData = new FormData();
+        submitData.append("title", formData.title)
+        submitData.append("content", formData.content)
+        if(file) {
+            submitData.append("image", file)
+        }
+        for(let [key, value] of submitData.entries()) {
+            console.log(key, value)
+        }
         try {
             const response = await fetch('http://localhost:8080/api/v1/blog', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
+                body: submitData
             });
 
             if (response.ok) {
@@ -44,7 +55,8 @@ export default function BlogPostForm() {
         <form onSubmit={handleSubmit} className="space-y-100 pt-10">
             <div className="max-w-sm mx-auto">
                 <div className="mb-5">
-                    <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Title:</label>
+                    <label htmlFor="title"
+                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Title:</label>
                     <input
                         type="text"
                         id="title"
@@ -59,7 +71,8 @@ export default function BlogPostForm() {
                     />
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="content" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Content:</label>
+                    <label htmlFor="content"
+                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Content:</label>
                     <textarea
                         id="content"
                         name="content"
@@ -72,9 +85,19 @@ export default function BlogPostForm() {
 
                     ></textarea>
                 </div>
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload
+                    file</label>
+                <input
+                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer
+                    bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600
+                    dark:placeholder-gray-400"
+                    onChange={handleFileChange}
+                    id="file_input"
+                    type="file"/>
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none
                 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600
-                dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
+                </button>
             </div>
         </form>
     );

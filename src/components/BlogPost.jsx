@@ -15,18 +15,12 @@ export default function BlogPost({ id, image, comments, title, content }) {
 
     const fetchImage = async (imageId) => {
         try {
-            const response = await fetch(`/api/v1/images/${imageId}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": 'application/octet-stream'
-                }
-            });
+            const response = await fetch(`http://localhost:8080/api/v1/images/${imageId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch image');
             }
             const blob = await response.blob();
             const imageUrl = URL.createObjectURL(blob);
-            console.log("Generated Image URL:", imageUrl);
             setImageData(imageUrl);
         } catch (error) {
             console.error('Error fetching image:', error);

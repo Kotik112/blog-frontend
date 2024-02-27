@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types';
+
 export default function PageBar({ currentPage, totalPages, goToPage}) {
 
-    const isFirstPage = currentPage == 1;
-    const isLastPage = currentPage == totalPages;
+    const isFirstPage = currentPage == 0;
+    const isLastPage = currentPage == totalPages - 1;
 
     const handlePrevClick = () => {
         if(!isFirstPage) {
@@ -58,3 +60,10 @@ export default function PageBar({ currentPage, totalPages, goToPage}) {
         </div>
     )
 }
+
+PageBar.propTypes = {
+    currentPage: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+    goToPage: PropTypes.func.isRequired,
+};
+
