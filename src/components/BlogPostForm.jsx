@@ -1,11 +1,17 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from "prop-types";
 
-export default function BlogPostForm() {
+//TODO: Add prop types validation. Remove the hardcoded auth credentials and use a more secure way to handle authentication.
+export default function BlogPostForm({ auth }) {
     const [formData, setFormData] = useState({
         title: '',
         content: ''
     });
     const [file, setFile] = useState(null);
+    const [status, setStatus] = useState(null);
+    const navigate = useNavigate();
+
 
     // Function to handle input changes
     const handleInputChange = (e) => {
@@ -30,24 +36,25 @@ export default function BlogPostForm() {
         if(file) {
             submitData.append("image", file)
         }
-        for(let [key, value] of submitData.entries()) {
-            console.log(key, value)
-        }
+
         try {
             const response = await fetch('http://localhost:8080/api/v1/blog', {
                 method: 'POST',
+                headers: {
+                    "Authorization": "Basic " + auth
+                },
                 body: submitData
             });
-
-            if (response.ok) {
-                // Handle success
-                console.log('Blog post created successfully!');
+            console.log(response.status);
+            if (response.status === 401) {
+                navigate('/login');
+            } else if (response.ok) {
+                setStatus("Blog post created successfully!");
             } else {
-                // Handle error
-                console.error('Failed to create blog post');
+                setStatus("Post created error!");
             }
         } catch (error) {
-            console.error('Error:', error);
+            setStatus("Error posting blog!");
         }
     };
 
@@ -98,7 +105,12 @@ export default function BlogPostForm() {
                 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600
                 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
                 </button>
+                {status && <p className="text-center mt-4 text-red-500">{status}</p>}
             </div>
         </form>
     );
 }
+
+BlogPostForm.propTypes = {
+    auth: PropTypes.string.isRequired
+};

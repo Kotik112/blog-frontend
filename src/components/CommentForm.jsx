@@ -26,7 +26,7 @@ export default function CommentForm() {
         console.log(formData)
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/comment', {
+            const response = await fetch('http://localhost:8080/api/v1/comments', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -48,7 +48,6 @@ export default function CommentForm() {
 
     return (
         <div>
-            {/* Your comment form UI */}
             <h2>Comment Form for post id: {postIdNumber}</h2>
             <form onSubmit={handleSubmit} className="max-w-md mx-auto">
                 <label htmlFor="comment" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your

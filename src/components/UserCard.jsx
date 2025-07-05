@@ -1,6 +1,6 @@
 import logo from "../assets/kotik.jpg"
 
-export default function UserCard() {
+export default function UserCard({name, role}) {
     return (
         <div
             className="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center
@@ -12,7 +12,7 @@ export default function UserCard() {
                         Arman Iqbal
                     </p>
                     <p className="text-slate-500 font-medium">
-                        Software Engineer
+                        Software Engineer II
                     </p>
                 </div>
                 <button
