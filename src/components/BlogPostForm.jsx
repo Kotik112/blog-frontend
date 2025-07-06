@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PropTypes from "prop-types";
 
-//TODO: Add prop types validation. Remove the hardcoded auth credentials and use a more secure way to handle authentication.
-export default function BlogPostForm({ auth }) {
+export default function BlogPostForm() {
     const [formData, setFormData] = useState({
         title: '',
         content: ''
@@ -40,21 +38,24 @@ export default function BlogPostForm({ auth }) {
         try {
             const response = await fetch('http://localhost:8080/api/v1/blog', {
                 method: 'POST',
-                headers: {
-                    "Authorization": "Basic " + auth
-                },
+                credentials: 'include',
                 body: submitData
             });
-            console.log(response.status);
-            if (response.status === 401) {
+            console.log("Response status:", response.status);
+
+            if (response.status === 401 || response.status === 403) {
+                console.warn("Unauthorized or Forbidden. Redirecting to login.");
                 navigate('/login');
             } else if (response.ok) {
                 setStatus("Blog post created successfully!");
+                navigate('/'); // Redirect to home page after successful submission
             } else {
-                setStatus("Post created error!");
+                console.error(`Error: ${response.status} - ${response.statusText}`);
+                setStatus("Error posting blog!");
             }
         } catch (error) {
-            setStatus("Error posting blog!");
+            console.error("Error submitting blog post:", error);
+            setStatus("Failed to submit blog post. Please try again later.");
         }
     };
 
@@ -110,7 +111,3 @@ export default function BlogPostForm({ auth }) {
         </form>
     );
 }
-
-BlogPostForm.propTypes = {
-    auth: PropTypes.string.isRequired
-};

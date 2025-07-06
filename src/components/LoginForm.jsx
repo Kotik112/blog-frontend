@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useAuth} from "./AuthContext.jsx";
+import { useAuth } from "./auth/useAuth.jsx";
 
 export default function LoginForm() {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -18,6 +18,7 @@ export default function LoginForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null);
 
         try {
             const response = await fetch('http://localhost:8080/api/v1/auth/login', {
@@ -35,7 +36,8 @@ export default function LoginForm() {
             if (response.status === 401) {
                 setError("Invalid credentials.");
             } else if (response.ok) {
-                login(credentials.username)
+                const userData = await response.json();
+                login(userData);
                 navigate('/');
             } else {
                 setError("Unexpected error occurred.");

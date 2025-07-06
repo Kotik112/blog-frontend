@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import BlogPost from "./BlogPost.jsx";
 import PageBar from "./PageBar.jsx";
-import PropTypes from "prop-types";
 
-export default function Home({auth}) {
+export default function Home() {
     const [blogPosts, setBlogPosts] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(0);
@@ -12,8 +11,10 @@ export default function Home({auth}) {
     useEffect(() => {
 
         fetch(`http://localhost:8080/api/v1/blog?page=${currentPage}`, {
+            method: 'GET',
+            credentials: 'include', // Include cookies for session management
             headers: {
-                "Authorization": "Basic " + auth
+                'Content-Type': 'application/json',
             }
         })
             .then(response => {
@@ -27,7 +28,7 @@ export default function Home({auth}) {
                 setTotalPages(data.totalPages);
             })
             .catch(error => setError(error.message));
-    }, [currentPage, auth]);
+    }, [currentPage]);
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber)
@@ -38,13 +39,13 @@ export default function Home({auth}) {
             {error && <p className="text-center mt-4 text-red-500">{error}</p>}
             {blogPosts.map(post => (
                 <BlogPost
-
                     key={post.id}
                     id={post.id}
                     image={post.image}
                     title={post.title}
                     content={post.content}
                     comments={post.comments}
+                    createdBy={post.createdBy}
                 />
             ))}
             <PageBar
@@ -55,7 +56,3 @@ export default function Home({auth}) {
         </div>
     );
 }
-
-Home.propTypes = {
-    auth: PropTypes.string.isRequired
-};
