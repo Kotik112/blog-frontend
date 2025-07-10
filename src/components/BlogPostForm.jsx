@@ -60,11 +60,16 @@ export default function BlogPostForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-100 pt-10">
-            <div className="max-w-sm mx-auto">
-                <div className="mb-5">
-                    <label htmlFor="title"
-                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Title:</label>
+        <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
+            <h1 className="text-3xl font-bold mb-4 text-center">Submit a Post</h1>
+            <p className="text-gray-600 text-center mb-6">
+                Fill out the form below to share your thoughts.
+            </p>
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                        Title
+                    </label>
                     <input
                         type="text"
                         id="title"
@@ -72,42 +77,47 @@ export default function BlogPostForm() {
                         value={formData.title}
                         onChange={handleInputChange}
                         required
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-                        dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-                        dark:shadow-sm-light"
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                     />
                 </div>
-                <div className="mb-5">
-                    <label htmlFor="content"
-                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Content:</label>
+
+                <div>
+                    <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+                        Content
+                    </label>
                     <textarea
                         id="content"
                         name="content"
                         value={formData.content}
                         onChange={handleInputChange}
                         required
-                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300
-                        focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600
-                        dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-                    ></textarea>
+                        rows="4"
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                    />
                 </div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload
-                    file</label>
-                <input
-                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer
-                    bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600
-                    dark:placeholder-gray-400"
-                    onChange={handleFileChange}
-                    id="file_input"
-                    type="file"/>
-                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none
-                focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600
-                dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
+
+                <div>
+                    <label htmlFor="file_input" className="block text-sm font-medium text-gray-700">
+                        Upload File
+                    </label>
+                    <input
+                        type="file"
+                        id="file_input"
+                        onChange={handleFileChange}
+                        className="mt-1 block w-full text-sm border border-gray-300 rounded-md shadow-sm p-2 bg-gray-50"
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+                >
+                    Submit
                 </button>
-                {status && <p className="text-center mt-4 text-red-500">{status}</p>}
-            </div>
-        </form>
+
+                {status && <p className="mt-4 text-center text-sm text-gray-600">{status}</p>}
+            </form>
+        </div>
+
     );
 }

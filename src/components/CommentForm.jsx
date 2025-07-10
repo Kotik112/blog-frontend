@@ -1,11 +1,12 @@
-import { useLocation } from 'react-router-dom';
-import {useState} from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from "react";
 
 export default function CommentForm() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const postId = searchParams.get("blogPostId");
     const postIdNumber = parseInt(postId);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         content: '',
@@ -37,6 +38,8 @@ export default function CommentForm() {
             if (response.ok) {
                 // Handle success
                 console.log('Comment created successfully!');
+                setFormData({ content: '', blogPostId: postIdNumber });
+                navigate("/your-posts"); // Redirect to your posts page after successful submission // TODO: Change this to the appropriate page
             } else {
                 // Handle error
                 console.error('Failed to create Comment');
