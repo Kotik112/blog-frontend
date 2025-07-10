@@ -4,7 +4,7 @@ import BlogPost from "./BlogPost.jsx";
 import PageBar from "./PageBar.jsx";
 
 export default function Home() {
-    const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
     const [blogPosts, setBlogPosts] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(0);
