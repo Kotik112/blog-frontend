@@ -14,13 +14,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Print backend URL
-        run: echo "Backend is $REACT_APP_BACKEND_URL"
-        env:
-          REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
-
-      - name: Check built JS contents
-        run: grep -r "undefined" dist || echo "✅ No 'undefined' in build"
+      - name: Write env file
+        run: echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}" > .env.production
 
       - name: Install dependencies
         run: npm install
