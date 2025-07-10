@@ -12,7 +12,7 @@ export default function Home() {
 
     useEffect(() => {
         console.log("Using API base:", BASE_URL);
-        fetch(`http://${BASE_URL}/api/v1/blog?page=${currentPage}`, {
+        fetch(`${BASE_URL}/api/v1/blog?page=${currentPage}`, {
             method: 'GET',
             credentials: 'include', // Include cookies for session management
             headers: {
