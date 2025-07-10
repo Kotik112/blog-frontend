@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react'
-import { useState, useEffect } from 'react';
+import { React ,useState, useEffect } from 'react';
 import BlogPost from "./BlogPost.jsx";
 import PageBar from "./PageBar.jsx";
 
@@ -11,8 +10,8 @@ export default function Home() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-
-        fetch(`http://localhost:8080/api/v1/blog?page=${currentPage}`, {
+        const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+        fetch(`${BASE_URL}/api/v1/blog?page=${currentPage}`, {
             method: 'GET',
             credentials: 'include', // Include cookies for session management
             headers: {
