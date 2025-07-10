@@ -15,7 +15,7 @@ jobs:
           node-version: '18'
 
       - name: Write env file
-        run: echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}" > .env.production
+        run: echo "VITE_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}" > .env.production
 
       - name: Install dependencies
         run: npm install
@@ -23,7 +23,7 @@ jobs:
       - name: Build the project
         run: npm run build
         env:
-          REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
+          VITE_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
 
       - name: Confirm build output
         run: ls -la dist
