@@ -4,13 +4,13 @@ import BlogPost from "./BlogPost.jsx";
 import PageBar from "./PageBar.jsx";
 
 export default function Home() {
+    const BASE_URL = process.env.REACT_APP_BACKEND_URL;
     const [blogPosts, setBlogPosts] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(0);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const BASE_URL = process.env.REACT_APP_BACKEND_URL;
         fetch(`${BASE_URL}/api/v1/blog?page=${currentPage}`, {
             method: 'GET',
             credentials: 'include', // Include cookies for session management
