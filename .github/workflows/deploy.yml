@@ -19,6 +19,8 @@ jobs:
         env:
           REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
 
+      - name: Check built JS contents
+        run: grep -r "undefined" dist || echo "✅ No 'undefined' in build"
 
       - name: Install dependencies
         run: npm install

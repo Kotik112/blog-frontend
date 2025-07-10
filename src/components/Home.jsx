@@ -11,6 +11,7 @@ export default function Home() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        console.log("Using API base:", BASE_URL);
         fetch(`${BASE_URL}/api/v1/blog?page=${currentPage}`, {
             method: 'GET',
             credentials: 'include', // Include cookies for session management
