@@ -8,23 +8,23 @@ export const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
     const login = useCallback((userData) => {
         setUser(userData);
     }, []);
 
     const logout = useCallback(async () => {
-        await fetch("http://localhost:8080/api/v1/auth/logout", {
+        await fetch(`${BASE_URL}/api/v1/auth/logout`, {
             method: "POST",
             credentials: "include"
         });
         setUser(null);
         navigate("/");
-    }, [navigate]);
+    }, [navigate, BASE_URL]);
 
-    // Check session on app load
     useEffect(() => {
-        fetch("http://localhost:8080/api/v1/auth/whoami", {
+        fetch(`${BASE_URL}/api/v1/auth/whoami`, {
             credentials: "include"
         })
             .then(res => res.ok ? res.json() : null)
@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
                 }
             })
             .catch(() => setUser(null));
-    }, []);
+    }, [BASE_URL]);
 
     // Memoize context value to prevent unnecessary re-renders
     const contextValue = useMemo(() => ({ user, login, logout }), [user, login, logout]);

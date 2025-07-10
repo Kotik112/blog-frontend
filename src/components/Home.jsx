@@ -30,7 +30,7 @@ export default function Home() {
                 setTotalPages(data.totalPages);
             })
             .catch(error => setError(error.message));
-    }, [currentPage]);
+    }, [currentPage, BASE_URL]);
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber)

@@ -9,6 +9,7 @@ export default function BlogPostForm() {
     const [file, setFile] = useState(null);
     const [status, setStatus] = useState(null);
     const navigate = useNavigate();
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 
     // Function to handle input changes
@@ -36,7 +37,7 @@ export default function BlogPostForm() {
         }
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/blog', {
+            const response = await fetch(`${BASE_URL}/api/v1/blog`, {
                 method: 'POST',
                 credentials: 'include',
                 body: submitData

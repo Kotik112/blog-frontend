@@ -6,16 +6,17 @@ import { useState, useEffect } from "react";
 export default function BlogPost({ id, image, comments, title, content, createdBy }) {
     const navigate = useNavigate();
     const [imageData, setImageData] = useState(null);
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
     useEffect(() => {
         if (image) {
             fetchImage(image.id);
         }
-    }, [image]);
+    }, [image, BASE_URL]);
 
     const fetchImage = async (imageId) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/images/${imageId}`);
+            const response = await fetch(`${BASE_URL}/api/v1/images/${imageId}`);
             if (!response.ok) {
                 console.log(`Failed to fetch image with ID ${imageId}: ${response.statusText}. Error code: ${response.status}`);
             }

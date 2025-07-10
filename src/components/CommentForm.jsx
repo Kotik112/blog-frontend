@@ -7,6 +7,7 @@ export default function CommentForm() {
     const postId = searchParams.get("blogPostId");
     const postIdNumber = parseInt(postId);
     const navigate = useNavigate();
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
     const [formData, setFormData] = useState({
         content: '',
@@ -27,7 +28,7 @@ export default function CommentForm() {
         console.log(formData)
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/comments', {
+            const response = await fetch(`${BASE_URL}/api/v1/comments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
