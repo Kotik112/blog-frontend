@@ -19,6 +19,11 @@ jobs:
 
       - name: Build the project
         run: npm run build
+        env:
+          REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
+
+      - name: Confirm build output
+        run: ls -la build
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
