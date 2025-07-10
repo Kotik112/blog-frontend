@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, useEffect } from 'react';
 import BlogPost from "./BlogPost.jsx";
 import PageBar from "./PageBar.jsx";
