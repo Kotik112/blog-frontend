@@ -11,7 +11,7 @@ export default function Home() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`${BASE_URL}/api/v1/blog?page=${currentPage}`, {
+        fetch(`http://${BASE_URL}/api/v1/blog?page=${currentPage}`, {
             method: 'GET',
             credentials: 'include', // Include cookies for session management
             headers: {

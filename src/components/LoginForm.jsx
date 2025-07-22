@@ -7,6 +7,7 @@ export default function LoginForm() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const { login } = useAuth();
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,16 +19,15 @@ export default function LoginForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         setError(null);
 
         try {
-            const response = await fetch(`${BASE_URL}/api/v1/auth/login`, {
+            const response = await fetch(`https://${BASE_URL}/api/v1/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                credentials: 'include', // ⬅️ store session cookie
+                credentials: 'include',
                 body: JSON.stringify({
                     username: credentials.username,
                     password: credentials.password
