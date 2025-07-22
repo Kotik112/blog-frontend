@@ -16,7 +16,7 @@ export default function BlogPost({ id, image, comments, title, content, createdB
     const fetchImage = async (imageId) => {
         const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         try {
-            const response = await fetch(`${BASE_URL}/api/v1/images/${imageId}`);
+            const response = await fetch(`https://${BASE_URL}/api/v1/images/${imageId}`);
             if (!response.ok) {
                 console.log(`Failed to fetch image with ID ${imageId}: ${response.statusText}. Error code: ${response.status}`);
             }
