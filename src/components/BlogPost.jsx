@@ -6,15 +6,15 @@ import { useState, useEffect } from "react";
 export default function BlogPost({ id, image, comments, title, content, createdBy }) {
     const navigate = useNavigate();
     const [imageData, setImageData] = useState(null);
-    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
     useEffect(() => {
         if (image) {
             fetchImage(image.id);
         }
-    }, [image, BASE_URL]);
+    }, [image]);
 
     const fetchImage = async (imageId) => {
+        const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         try {
             const response = await fetch(`${BASE_URL}/api/v1/images/${imageId}`);
             if (!response.ok) {
@@ -82,5 +82,6 @@ BlogPost.propTypes = {
         content: PropTypes.string.isRequired
     })).isRequired,
     title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired
+    content: PropTypes.string.isRequired,
+    createdBy: PropTypes.string.isRequired
 };

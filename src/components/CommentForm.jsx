@@ -28,8 +28,9 @@ export default function CommentForm() {
         console.log(formData)
 
         try {
-            const response = await fetch(`${BASE_URL}/api/v1/comments`, {
+            const response = await fetch(`https://${BASE_URL}/api/v1/comments`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -40,7 +41,7 @@ export default function CommentForm() {
                 // Handle success
                 console.log('Comment created successfully!');
                 setFormData({ content: '', blogPostId: postIdNumber });
-                navigate("/your-posts"); // Redirect to your posts page after successful submission // TODO: Change this to the appropriate page
+                navigate("/your-posts"); // Redirect to your posts page after successful submission  TODO: Change this to the appropriate page
             } else {
                 // Handle error
                 console.error('Failed to create Comment');
