@@ -22,7 +22,7 @@ export default function YourPosts() {
                 }
 
                 const data = await response.json();
-                setPosts(data.content); // assuming you're using .content from Page
+                setPosts(data.content);
             } catch (error) {
                 console.error(error);
                 setError(error.message);

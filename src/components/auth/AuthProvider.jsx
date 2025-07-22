@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react'
-import {createContext, useState, useEffect, useMemo, useCallback} from "react";
+import { React, createContext, useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import PropTypes from "prop-types";
 
@@ -25,7 +24,7 @@ export function AuthProvider({ children }) {
     }, [navigate, BASE_URL]);
 
     useEffect(() => {
-        fetch(`${BASE_URL}/api/v1/auth/whoami`, {
+        fetch(`https://${BASE_URL}/api/v1/auth/whoami`, {
             credentials: "include"
         })
             .then(res => res.ok ? res.json() : null)
