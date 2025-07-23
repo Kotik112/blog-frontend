@@ -20,10 +20,12 @@ export default function Contact() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         setStatus("Sending your message...");
         try {
-            const response = await fetch('http://localhost:8080/api/v1/contact', {
+            const response = await fetch(`https://${BASE_URL}/api/v1/contact`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },

@@ -50,7 +50,7 @@ export default function BlogPostForm() {
             } else if (response.ok) {
                 console.log("Blog post created successfully.");
                 setStatus("Blog post created successfully!");
-                //navigate('/'); // Redirect to home page after successful submission
+                navigate('/'); // Redirect to home page after successful submission
             } else {
                 console.error(`Error: ${response.status} - ${response.statusText}`);
                 setStatus("Error posting blog!");
