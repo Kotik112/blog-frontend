@@ -9,7 +9,10 @@ export default function BlogPost({ id, image, comments, title, content, createdB
 
     useEffect(() => {
         if (image) {
-            fetchImage(image.id);
+            const loadImage = async () => {
+                await fetchImage(image.id);
+            };
+            loadImage();
         }
     }, [image]);
 
