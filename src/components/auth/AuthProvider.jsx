@@ -3,9 +3,24 @@ import { React, createContext, useState, useEffect, useMemo, useCallback } from 
 import { useNavigate } from 'react-router-dom';
 import PropTypes from "prop-types";
 
-export const AuthContext = createContext(null);
+/**
+ * @type {import('react').Context<{
+ *   user: User|null,
+ *   login: (userData: User) => void,
+ *   logout: () => void,
+ *   loading: boolean
+ * }>}
+ */
+
+export const AuthContext = createContext({
+    user: null,
+    login: () => {},
+    logout: () => {},
+    loading: true
+});
 
 export function AuthProvider({ children }) {
+    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const BASE_URL = import.meta.env.VITE_BACKEND_URL;
@@ -28,18 +43,23 @@ export function AuthProvider({ children }) {
             credentials: "include"
         })
             .then(res => res.ok ? res.json() : null)
+            .then(data => console.log(data))
             .then(data => {
-                if (data) {
-                    setUser(data);
+                if (data && data.username && data.sessionId && Array.isArray(data.roles)) {
+                    setUser(data.username);
                 } else {
                     setUser(null);
                 }
+                setLoading(false);
             })
-            .catch(() => setUser(null));
+            .catch(() => {
+                setUser(null);
+                setLoading(false);
+            });
     }, [BASE_URL]);
 
     // Memoize context value to prevent unnecessary re-renders
-    const contextValue = useMemo(() => ({ user, login, logout }), [user, login, logout]);
+    const contextValue = useMemo(() => ({ user, login, logout, loading }), [user, login, logout, loading]);
 
     return (
         <AuthContext.Provider value={contextValue}>

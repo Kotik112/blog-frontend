@@ -15,7 +15,7 @@ export default function NavBar() {
                     <img src={ blogLogo } className="h-8" alt="Blog Logo"/>
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Blogify</span>
                 </Link>
-
+                { /* Hamburger menu if screen width not big enough  */ }
                 <button
                     data-collapse-toggle="navbar-default"
                     type="button"
