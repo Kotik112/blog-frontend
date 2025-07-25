@@ -78,7 +78,7 @@ BlogPost.propTypes = {
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
         createdAt: PropTypes.string.isRequired,
-        createdBy: PropTypes.string.isRequired
+        createdBy: PropTypes.string
     }),
     comments: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,

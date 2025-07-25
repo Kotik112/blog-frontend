@@ -2,15 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import BlogPost from "./BlogPost.jsx";
 import PageBar from "./PageBar.jsx";
+import { useAuth } from "./auth/useAuth.jsx";
 
 export default function Home() {
-    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+    const { user } = useAuth();
     const [blogPosts, setBlogPosts] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(0);
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         fetch(`http://${BASE_URL}/api/v1/blog?page=${currentPage}`, {
             method: 'GET',
             credentials: 'include', // Include cookies for session management
@@ -29,7 +31,7 @@ export default function Home() {
                 setTotalPages(data.totalPages);
             })
             .catch(error => setError(error.message));
-    }, [currentPage, BASE_URL]);
+    }, [currentPage]);
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber)
@@ -37,6 +39,11 @@ export default function Home() {
 
     return (
         <div className="flex flex-col " style={{marginBottom: "100px"}}>
+            { user && (
+                <p className="text-center mt-4 text-sm text-gray-600">
+                    Logged in as <strong>{user.username}</strong> ({user.roles.join(", ")})
+                </p>
+            )}
             {error && <p className="text-center mt-4 text-red-500">{error}</p>}
             {blogPosts.map(post => (
                 <BlogPost

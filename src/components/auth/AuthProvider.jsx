@@ -43,10 +43,9 @@ export function AuthProvider({ children }) {
             credentials: "include"
         })
             .then(res => res.ok ? res.json() : null)
-            .then(data => console.log(data))
             .then(data => {
                 if (data && data.username && data.sessionId && Array.isArray(data.roles)) {
-                    setUser(data.username);
+                    setUser(data);
                 } else {
                     setUser(null);
                 }
