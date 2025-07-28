@@ -6,10 +6,12 @@ import React from 'react'
 
 export default function App() {
     return (
-        <Router>
-            <AuthProvider>
-                <BlogPostRouter />
-            </AuthProvider>
-        </Router>
+        <div style={{ backgroundColor: '#dbe9ee', minHeight: '100vh' }}>
+            <Router>
+                <AuthProvider>
+                    <BlogPostRouter />
+                </AuthProvider>
+            </Router>
+        </div>
     );
 }

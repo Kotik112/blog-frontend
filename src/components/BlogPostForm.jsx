@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {ROUTES} from "../constants/Routes.js";
 
 export default function BlogPostForm() {
     const [formData, setFormData] = useState({
@@ -37,26 +38,21 @@ export default function BlogPostForm() {
         }
 
         try {
-            const response = await fetch(`https://${BASE_URL}/api/v1/blog`, {
+            const response = await fetch(`${BASE_URL}/api/v1/blog`, {
                 method: 'POST',
                 credentials: 'include',
                 body: submitData
             });
-            console.log("Response status:", response.status);
 
             if (response.status === 401 || response.status === 403) {
-                console.warn("Unauthorized or Forbidden. Redirecting to login.");
-                navigate('/login');
+                navigate(ROUTES.LOGIN);
             } else if (response.ok) {
-                console.log("Blog post created successfully.");
                 setStatus("Blog post created successfully!");
-                navigate('/'); // Redirect to home page after successful submission
+                navigate(ROUTES.HOME); // Redirect to home page after successful submission
             } else {
-                console.error(`Error: ${response.status} - ${response.statusText}`);
                 setStatus("Error posting blog!");
             }
         } catch (error) {
-            console.error("Error submitting blog post:", error);
             setStatus("Failed to submit blog post. Please try again later.");
         }
     };

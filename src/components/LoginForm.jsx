@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { useAuth } from "./auth/useAuth.jsx";
+import {ROUTES} from "../constants/Routes.js";
 
 export default function LoginForm() {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -22,7 +23,7 @@ export default function LoginForm() {
         setError(null);
 
         try {
-            const response = await fetch(`https://${BASE_URL}/api/v1/auth/login`, {
+            const response = await fetch(`${BASE_URL}/api/v1/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -94,6 +95,9 @@ export default function LoginForm() {
                         Sign In
                     </button>
                 </div>
+                <p className="text-center text-gray-600 text-sm mt-4">
+                    Dont have an account? <Link to={ROUTES.REGISTER} className="text-blue-500 hover:text-blue-700">Register</Link>
+                </p>
             </form>
         </div>
     );

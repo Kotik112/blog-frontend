@@ -3,15 +3,6 @@ import { React, createContext, useState, useEffect, useMemo, useCallback } from 
 import { useNavigate } from 'react-router-dom';
 import PropTypes from "prop-types";
 
-/**
- * @type {import('react').Context<{
- *   user: User|null,
- *   login: (userData: User) => void,
- *   logout: () => void,
- *   loading: boolean
- * }>}
- */
-
 export const AuthContext = createContext({
     user: null,
     login: () => {},
@@ -30,7 +21,7 @@ export function AuthProvider({ children }) {
     }, []);
 
     const logout = useCallback(async () => {
-        await fetch(`https://${BASE_URL}/api/v1/auth/logout`, {
+        await fetch(`${BASE_URL}/api/v1/auth/logout`, {
             method: "POST",
             credentials: "include"
         });
@@ -39,12 +30,12 @@ export function AuthProvider({ children }) {
     }, [navigate, BASE_URL]);
 
     useEffect(() => {
-        fetch(`https://${BASE_URL}/api/v1/auth/whoami`, {
+        fetch(`${BASE_URL}/api/v1/auth/whoami`, {
             credentials: "include"
         })
             .then(res => res.ok ? res.json() : null)
             .then(data => {
-                if (data && data.username && data.sessionId && Array.isArray(data.roles)) {
+                if (data?.username && data?.sessionId && Array.isArray(data?.roles)) {
                     setUser(data);
                 } else {
                     setUser(null);

@@ -13,7 +13,7 @@ export default function Home() {
 
     useEffect(() => {
         const BASE_URL = import.meta.env.VITE_BACKEND_URL;
-        fetch(`http://${BASE_URL}/api/v1/blog?page=${currentPage}`, {
+        fetch(`${BASE_URL}/api/v1/blog?page=${currentPage}`, {
             method: 'GET',
             credentials: 'include', // Include cookies for session management
             headers: {

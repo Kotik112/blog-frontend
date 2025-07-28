@@ -1,6 +1,7 @@
 import { useAuth } from './useAuth';
 import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from "prop-types";
+import {ROUTES} from "../../constants/Routes.js";
 
 export default function RequireAuth({ children }) {
     const { user, loading } = useAuth();
@@ -12,7 +13,7 @@ export default function RequireAuth({ children }) {
     }
 
     if (!user) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
+        return <Navigate to={ROUTES.LOGIN} state={{ from: location }} replace />;
     }
 
     return children;

@@ -23,7 +23,7 @@ export default function Contact() {
         const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         setStatus("Sending your message...");
         try {
-            const response = await fetch(`https://${BASE_URL}/api/v1/contact`, {
+            const response = await fetch(`${BASE_URL}/api/v1/contact`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

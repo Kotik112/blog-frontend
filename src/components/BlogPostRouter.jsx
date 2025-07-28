@@ -11,6 +11,8 @@ import CommentForm from "./CommentForm.jsx";
 import LoginForm from "./LoginForm.jsx";
 import LogoutHandler from "./LogoutHandler.jsx";
 import RequireAuth from "./auth/RequireAuth.jsx";
+import {ROUTES} from "../constants/Routes.js";
+import RegisterUserForm from "./RegisterUserForm.jsx";
 
 export default function BlogPostRouter() {
 
@@ -18,26 +20,27 @@ export default function BlogPostRouter() {
         <>
             <NavBar />
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path={ROUTES.HOME} element={<Home />} />
 
                 {/* ✅ Protected routes */}
-                <Route path="/new-post" element={
+                <Route path={ROUTES.NEW_POST} element={
                     <RequireAuth>
                         <BlogPostForm />
                     </RequireAuth>
                 } />
-                <Route path="/your-posts" element={
+                <Route path={ROUTES.YOUR_POSTS} element={
                     <RequireAuth>
                         <YourPosts />
                     </RequireAuth>
                 } />
 
                 {/* ✅ Public routes */}
-                <Route path="/about-us" element={<AboutUs />} />
-                <Route path="/contact" element={<Contact name="Arman Iqbal" role="Software Engineer II" />} />
-                <Route path="/leave-comment" element={<CommentForm />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/logout" element={<LogoutHandler />} />
+                <Route path={ROUTES.ABOUT_US} element={<AboutUs />} />
+                <Route path={ROUTES.CONTACT} element={<Contact name="Arman Iqbal" role="Software Engineer II" />} />
+                <Route path={ROUTES.LEAVE_COMMENT} element={<CommentForm />} />
+                <Route path={ROUTES.LOGIN} element={<LoginForm />} />
+                <Route path={ROUTES.LOGOUT} element={<LogoutHandler />} />
+                <Route path={ROUTES.REGISTER} element={<RegisterUserForm />} />
             </Routes>
         </>
     );
