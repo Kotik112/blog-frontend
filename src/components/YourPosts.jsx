@@ -9,7 +9,7 @@ export default function YourPosts() {
         const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         const fetchUserPosts = async () => {
             try {
-                const response = await fetch(`https://${BASE_URL}/api/v1/blog/logged-in-user?page=0&size=5`, {
+                const response = await fetch(`${BASE_URL}/api/v1/blog/logged-in-user?page=0&size=5`, {
                     method: 'GET',
                     credentials: 'include',
                 });

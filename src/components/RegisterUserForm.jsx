@@ -13,7 +13,6 @@ export default function RegisterUserForm() {
         lastName: ''
     })
     const [status, setStatus] = useState(null);
-    const [passwordMatch, setPasswordMatch] = useState(true);
     
     // Function to handle input changes
     const handleInputChange = (e) => {
@@ -29,13 +28,13 @@ export default function RegisterUserForm() {
         e.preventDefault();
 
         if(formData.password !== formData.confirmPassword) {
-            setPasswordMatch(false);
             setStatus("Passwords do not match.");
             return;
         }
 
         const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         setStatus("Submitting your post...");
+        // eslint-disable-next-line no-unused-vars
         const { confirmPassword, ...safeFormData } = formData;
 
         try {
