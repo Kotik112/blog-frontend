@@ -1,0 +1,10 @@
+name: Debug or Test Workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check AWS CLI Version
+        run: aws --version
