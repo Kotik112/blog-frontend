@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {ROUTES} from "../constants/Routes.js";
+import {BASE_URL} from "../utils/config.js";
 
 export default function BlogPostForm() {
     const [formData, setFormData] = useState({
@@ -10,7 +11,6 @@ export default function BlogPostForm() {
     const [file, setFile] = useState(null);
     const [status, setStatus] = useState(null);
     const navigate = useNavigate();
-    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 
     // Function to handle input changes

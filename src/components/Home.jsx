@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import BlogPost from "./BlogPost.jsx";
 import PageBar from "./PageBar.jsx";
 import { useAuth } from "./auth/useAuth.jsx";
+import {BASE_URL} from "../utils/config.js";
 
 export default function Home() {
     const { user } = useAuth();
@@ -12,7 +13,6 @@ export default function Home() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         fetch(`${BASE_URL}/api/v1/blog?page=${currentPage}`, {
             method: 'GET',
             credentials: 'include', // Include cookies for session management

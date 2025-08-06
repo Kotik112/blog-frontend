@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Comment from "./Comment.jsx";
 import { useState, useEffect } from "react";
+import {BASE_URL} from "../utils/config.js";
 
 export default function BlogPost({ id, image, comments, title, content, createdBy }) {
     const navigate = useNavigate();
@@ -17,7 +18,6 @@ export default function BlogPost({ id, image, comments, title, content, createdB
     }, [image]);
 
     const fetchImage = async (imageId) => {
-        const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         try {
             const response = await fetch(`${BASE_URL}/api/v1/images/${imageId}`);
             if (!response.ok) {

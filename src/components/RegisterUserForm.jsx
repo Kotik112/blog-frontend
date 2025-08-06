@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import {useState} from "react";
 import {ROUTES} from "../constants/Routes.js";
+import {BASE_URL} from "../utils/config.js";
 
 export default function RegisterUserForm() {
     const navigate = useNavigate();
@@ -32,7 +33,6 @@ export default function RegisterUserForm() {
             return;
         }
 
-        const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         setStatus("Submitting your post...");
         // eslint-disable-next-line no-unused-vars
         const { confirmPassword, ...safeFormData } = formData;

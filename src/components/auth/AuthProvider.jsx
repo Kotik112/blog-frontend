@@ -1,61 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import { React, createContext, useState, useEffect, useMemo, useCallback } from "react";
+import { React } from "react";
 import { useNavigate } from 'react-router-dom';
 import PropTypes from "prop-types";
-
-export const AuthContext = createContext({
-    user: null,
-    login: () => {},
-    logout: () => {},
-    loading: true
-});
+import { AuthProviderInternal } from "./AuthProviderInternal.jsx";
 
 export function AuthProvider({ children }) {
-    const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState(null);
     const navigate = useNavigate();
-    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
-
-    const login = useCallback((userData) => {
-        setUser(userData);
-    }, []);
-
-    const logout = useCallback(async () => {
-        await fetch(`${BASE_URL}/api/v1/auth/logout`, {
-            method: "POST",
-            credentials: "include"
-        });
-        setUser(null);
-        navigate("/");
-    }, [navigate, BASE_URL]);
-
-    useEffect(() => {
-        fetch(`${BASE_URL}/api/v1/auth/whoami`, {
-            credentials: "include"
-        })
-            .then(res => res.ok ? res.json() : null)
-            .then(data => {
-                if (data?.username && data?.sessionId && Array.isArray(data?.roles)) {
-                    setUser(data);
-                } else {
-                    setUser(null);
-                }
-                setLoading(false);
-            })
-            .catch(() => {
-                setUser(null);
-                setLoading(false);
-            });
-    }, [BASE_URL]);
-
-    // Memoize context value to prevent unnecessary re-renders
-    const contextValue = useMemo(() => ({ user, login, logout, loading }), [user, login, logout, loading]);
-
-    return (
-        <AuthContext.Provider value={contextValue}>
-            {children}
-        </AuthContext.Provider>
-    );
+    return <AuthProviderInternal navigate={navigate}>{children}</AuthProviderInternal>;
 }
 
 AuthProvider.propTypes = {

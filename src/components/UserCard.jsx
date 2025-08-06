@@ -1,3 +1,4 @@
+import React from 'react';
 import logo from "../assets/kotik.jpg"
 
 export default function UserCard() {

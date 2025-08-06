@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from "react";
+import {BASE_URL} from "../utils/config.js";
 
 export default function CommentForm() {
     const location = useLocation();
@@ -7,7 +8,6 @@ export default function CommentForm() {
     const postId = searchParams.get("blogPostId");
     const postIdNumber = parseInt(postId);
     const navigate = useNavigate();
-    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
     const [formData, setFormData] = useState({
         content: '',
@@ -28,7 +28,7 @@ export default function CommentForm() {
         console.log(formData)
 
         try {
-            const response = await fetch(`https://${BASE_URL}/api/v1/comments`, {
+            const response = await fetch(`${BASE_URL}/api/v1/comments`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

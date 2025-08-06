@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {BASE_URL} from "../utils/config.js";
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -20,7 +21,6 @@ export default function Contact() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         setStatus("Sending your message...");
         try {
             const response = await fetch(`${BASE_URL}/api/v1/contact`, {

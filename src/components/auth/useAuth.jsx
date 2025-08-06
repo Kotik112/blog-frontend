@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from './AuthProvider.jsx';
+import { AuthContext } from './AuthProviderInternal.jsx';
 
 
 /**

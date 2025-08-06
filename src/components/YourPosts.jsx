@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import BlogPost from './BlogPost.jsx';
 import PageBar from "./PageBar.jsx";
+import {BASE_URL} from "../utils/config.js";
 
 export default function YourPosts() {
     const [posts, setPosts] = useState([]);
@@ -11,7 +12,6 @@ export default function YourPosts() {
     const [currentPage, setCurrentPage] = useState(0);
 
     useEffect(() => {
-        const BASE_URL = import.meta.env.VITE_BACKEND_URL;
         fetch(`${BASE_URL}/api/v1/blog/logged-in-user?page=0&size=5`, {
             method: 'GET',
             credentials: 'include',
