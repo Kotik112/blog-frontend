@@ -13,6 +13,7 @@ import LogoutHandler from "./LogoutHandler.jsx";
 import RequireAuth from "./auth/RequireAuth.jsx";
 import {ROUTES} from "../constants/Routes.js";
 import RegisterUserForm from "./RegisterUserForm.jsx";
+import AdminPage from "./AdminPage.jsx";
 
 export default function BlogPostRouter() {
 
@@ -31,6 +32,11 @@ export default function BlogPostRouter() {
                 <Route path={ROUTES.YOUR_POSTS} element={
                     <RequireAuth>
                         <YourPosts />
+                    </RequireAuth>
+                } />
+                <Route path={ROUTES.ADMIN_PAGE} element={
+                    <RequireAuth>
+                        <AdminPage />
                     </RequireAuth>
                 } />
 
