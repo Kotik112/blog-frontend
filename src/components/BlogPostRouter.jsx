@@ -13,7 +13,11 @@ import LogoutHandler from "./LogoutHandler.jsx";
 import RequireAuth from "./auth/RequireAuth.jsx";
 import {ROUTES} from "../constants/Routes.js";
 import RegisterUserForm from "./RegisterUserForm.jsx";
-import AdminPage from "./AdminPage.jsx";
+import AdminLayout from "./admin/AdminLayout.jsx";
+import RequireAdmin from "./auth/RequireAdmin.jsx";
+import AdminUsers from "./admin/AdminUsers.jsx";
+import AdminPosts from "./admin/AdminPosts.jsx";
+import AdminComments from "./admin/AdminComments.jsx";
 
 export default function BlogPostRouter() {
 
@@ -34,11 +38,18 @@ export default function BlogPostRouter() {
                         <YourPosts />
                     </RequireAuth>
                 } />
-                <Route path={ROUTES.ADMIN_PAGE} element={
-                    <RequireAuth>
-                        <AdminPage />
-                    </RequireAuth>
-                } />
+
+
+                {/* 🔐 Admin section: guard + layout + nested pages */}
+                <Route
+                    path={ROUTES.ADMIN_PAGE}
+                    element={<RequireAdmin><AdminLayout /></RequireAdmin>}
+                >
+                    <Route index element={<AdminUsers />} />
+                    <Route path={ROUTES.ADMIN_USERS} element={<AdminUsers />} />
+                    <Route path={ROUTES.ADMIN_POSTS} element={<AdminPosts />} />
+                    <Route path={ROUTES.ADMIN_COMMENTS} element={<AdminComments />} />
+                </Route>
 
                 {/* ✅ Public routes */}
                 <Route path={ROUTES.ABOUT_US} element={<AboutUs />} />

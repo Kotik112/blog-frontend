@@ -9,4 +9,7 @@ export const ROUTES = {
     LOGOUT: '/logout',
     REGISTER: '/register',
     ADMIN_PAGE: '/admin',
+    ADMIN_USERS: '/admin/users',
+    ADMIN_POSTS: '/admin/posts',
+    ADMIN_COMMENTS: '/admin/comments',
 };

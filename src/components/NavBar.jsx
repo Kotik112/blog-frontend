@@ -1,16 +1,26 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
-import { Link } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import blogLogo from "../assets/blog-logo.svg"
 import {useAuth} from "./auth/useAuth.jsx";
 import {ROUTES} from "../constants/Routes.js";
+import {ROLES} from "../constants/Roles.js";
 
 export default function NavBar() {
     const { user } = useAuth();
+    const hasRole = (role) => Array.isArray(user?.roles) && user.roles.includes(role);
+    const { pathname } = useLocation();
+    const isAdminPath = pathname.startsWith("/admin");
+
+    const containerCls = isAdminPath
+        // full-width, offset by sidebar on md+
+        ? "w-full flex flex-wrap items-center justify-between p-4 md:pl-64"
+        // centered container elsewhere
+        : "max-w-screen-xl mx-auto flex flex-wrap items-center justify-between p-4";
 
     return (
         <nav className="bg-[#C0D6DF] border-gray-200 dark:bg-gray-900 sticky top-0 z-10">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <div className={containerCls}>
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={ blogLogo } className="h-8" alt="Blog Logo"/>
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Blogify</span>
@@ -72,6 +82,16 @@ export default function NavBar() {
                         <li>
                             <Link to={ROUTES.CONTACT} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</Link>
                         </li>
+                        {
+                            (user && hasRole(ROLES.ADMIN)) && (
+                                <li>
+                                    <Link
+                                        to={ROUTES.ADMIN_PAGE}
+                                        className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                                    >Admin</Link>
+                                </li>
+                            )
+                        }
                         { // conditional rendering of a login / logout link
                             user ?
                             (<li>

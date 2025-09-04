@@ -10,6 +10,7 @@ export default function YourPosts() {
     const [error, setError] = useState(null);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch(`${BASE_URL}/api/v1/blog/logged-in-user?page=0&size=5`, {
@@ -29,6 +30,7 @@ export default function YourPosts() {
                 setPosts(data.content);
                 setTotalPages(data.totalPages);
             })
+            .finally(() => setLoading(false))
             .catch(error => setError(error.message));
     }, [currentPage]);
 
@@ -40,8 +42,9 @@ export default function YourPosts() {
         <div>
             <div className="bg-[#dbe9ee] p-4">
                 <h1 className="text-2xl font-bold mb-4">Your Posts</h1>
+                {loading && <p>Loading...</p>}
                 {error && <p className="text-red-500">{error}</p>}
-                {posts.length === 0 && !error && <p>No posts found.</p>}
+                {!loading && posts.length === 0 && !error && <p>No posts found.</p>}
                 {posts.map(post => (
                     <BlogPost
                         key={post.id}
