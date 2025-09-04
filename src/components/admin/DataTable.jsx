@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 export default function DataTable({ columns, data }) {
-
+    console.log(data)
     return (
         <table className="w-full border-collapse bg-[#d1edff]">
             <thead>
