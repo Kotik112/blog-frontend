@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../utils/config.js";
 import DataTable from "./DataTable.jsx";
-import PageBar from "../PageBar.jsx"; // your existing component
+import PageBar from "../PageBar.jsx";
 
 export default function AdminUsers() {
-    const [page, setPage] = useState(0);     // 0-based
-    const size = 10;                         // page size you request
+    const [page, setPage] = useState(0);
+    const size = 10;
     const [pageData, setPageData] = useState(null);
     const [error, setError] = useState(null);
 
@@ -15,6 +15,7 @@ export default function AdminUsers() {
             headers: { Accept: "application/json" },
         })
             .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+            //.then(data => {console.log(data); return data;})
             .then(d => { setPageData(d); setError(null); })
             .catch(e => setError(e.message));
     }, [page, size]);
@@ -26,6 +27,12 @@ export default function AdminUsers() {
         { header: "Email", accessor: "email" },
         { header: "First Name", accessor: "firstName" },
         { header: "Last Name", accessor: "lastName" },
+        { header: "Role(s)", render: (row) =>
+                Array.isArray(row.roles) ? row.roles.join(", ")
+                    : row.role ?? "—"
+        },
+        { header: "Is Active", render: (row) => row.isActive ? "Yes" : "No" },
+        { header: "Is Verified", render: (row) => row.isEmailVerified ? "Yes" : "No" },
     ]
 
     return (

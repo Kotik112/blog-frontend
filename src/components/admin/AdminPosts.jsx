@@ -15,7 +15,7 @@ export default function AdminPosts() {
             headers: { Accept: "application/json" },
         })
             .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-            //.then(data => {console.log(data); return data;})
+            .then(data => {console.log(data); return data;})
             .then(d => { setPageData(d); setError(null); })
             .catch(e => setError(e.message));
     }, [page, size]);
