@@ -35,13 +35,10 @@ export function AuthProviderInternal({ children, navigate }) {
         fetch(`${BASE_URL}/api/v1/auth/whoami`, {
             credentials: "include"
         })
-            .then(res => res.ok ? res.json() : null)
+            .then(res => res.ok ? res.json() : { authenticated: false, user: null})
             .then(data => {
-                if (data?.username && data?.sessionId && Array.isArray(data?.roles)) {
-                    setUser(data);
-                } else {
-                    setUser(null);
-                }
+                if (data.authenticated) setUser(data.user);
+                else setUser(null)
                 setLoading(false);
             })
             .catch(() => {
