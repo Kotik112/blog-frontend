@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Comment from "./Comment.jsx";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {BASE_URL} from "../utils/config.js";
 
 export default function BlogPost({ id, image, comments, title, content, createdBy }) {
