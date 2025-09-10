@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {useState} from "react";
+import React, {useState} from "react";
 import {ROUTES} from "../constants/Routes.js";
 import {BASE_URL} from "../utils/config.js";
 
@@ -33,7 +33,7 @@ export default function RegisterUserForm() {
             return;
         }
 
-        setStatus("Submitting your post...");
+        setStatus("Submitting your request...");
         // eslint-disable-next-line no-unused-vars
         const { confirmPassword, ...safeFormData } = formData;
 
@@ -59,7 +59,7 @@ export default function RegisterUserForm() {
                 });
                 setTimeout(() => {
                     navigate(ROUTES.LOGIN);
-                }, 1500); // Redirect to login after 1.5 seconds
+                }, 1500);
             } else {
                 const errorText = await response.text();
                 setStatus(`Failed: ${errorText}`);

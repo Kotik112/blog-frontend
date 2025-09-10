@@ -6,14 +6,13 @@ import {BASE_URL} from "../utils/config.js";
 
 export default function BlogPost({ id, image, comments, title, content, createdBy }) {
     const navigate = useNavigate();
-    const [imageData, setImageData] = useState(null);
+    const [imageData, setImageData] = useState('');
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (image) {
-            const loadImage = async () => {
-                await fetchImage(image.id);
-            };
-            loadImage();
+            fetchImage(image.id)
+                .catch(error => setError('Error fetching image! ' + error.message));
         }
     }, [image]);
 
@@ -21,19 +20,24 @@ export default function BlogPost({ id, image, comments, title, content, createdB
         try {
             const response = await fetch(`${BASE_URL}/api/v1/images/${imageId}`);
             if (!response.ok) {
-                console.log(`Failed to fetch image with ID ${imageId}: ${response.statusText}. Error code: ${response.status}`);
+                setError(`Failed to fetch image. Status code: ${response.status}`);
+                return;
             }
             const blob = await response.blob();
             const imageUrl = URL.createObjectURL(blob);
             setImageData(imageUrl);
         } catch (error) {
-            console.error('Error fetching image:', error);
+            setError(`Error fetching image. Error code: ${error.code}`)
         }
     };
 
     const handleLeaveCommentClick = () => {
         navigate(`/leave-comment?blogPostId=${id}`);
     };
+
+    if (error) {
+        return <p>Error: ${error}</p>
+    }
 
     return (
         <div key={id} className="mx-auto my-1 border-2 p-4 relative" style={{ width: "600px" }}>
