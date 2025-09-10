@@ -11,5 +11,5 @@ export default function LogoutHandler() {
         navigate("/login");
     }, [logout, navigate]);
 
-    return null; // no UI needed
+    return null;
 }

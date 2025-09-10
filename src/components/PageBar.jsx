@@ -24,7 +24,7 @@ export default function PageBar({ currentPage, totalPages, goToPage}) {
             <div className="flex flex-col items-center">
                 <span className="text-sm text-gray-700 dark:text-gray-400">
                     Showing
-                    <span className="font-semibold text-gray-900 dark:text-white"> {currentPage}</span> to
+                    <span className="font-semibold text-gray-900 dark:text-white">  {currentPage}</span> to
                     <span className="font-semibold text-gray-900 dark:text-white"> {Math.min(currentPage + 10, totalPages)}</span> of
                     <span className="font-semibold text-gray-900 dark:text-white"> {totalPages}</span> Pages
                 </span>

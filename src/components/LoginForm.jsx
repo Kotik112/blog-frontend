@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { useAuth } from "./auth/useAuth.jsx";
 import {ROUTES} from "../constants/Routes.js";
@@ -61,6 +61,7 @@ export default function LoginForm() {
                             Username
                         </label>
                         <input
+                            id="username"
                             type="text"
                             name="username"
                             value={credentials.username}
@@ -75,6 +76,7 @@ export default function LoginForm() {
                             Password
                         </label>
                         <input
+                            id="password"
                             type="password"
                             name="password"
                             value={credentials.password}
