@@ -27,6 +27,9 @@ Blogify is a full-stack blogging platform. This repository contains the **React 
     - Manage users (view, update roles, delete accounts)
     - Manage posts (view, delete, audit)
 
+## Test it live
+https://blogify.kitok.click/
+
 ## 🛠 Tech Stack
 
 **Frontend**
