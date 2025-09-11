@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {ROUTES} from "../constants/Routes.js";
 import {BASE_URL} from "../utils/config.js";
@@ -13,6 +13,7 @@ export default function BlogPostForm() {
     const navigate = useNavigate();
 
 
+
     // Function to handle input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -23,7 +24,7 @@ export default function BlogPostForm() {
     };
 
     const handleFileChange = (e) => {
-        setFile(e.target.files[0])
+        setFile(e.target.files[0] ?? null);
     }
 
     // Function to handle form submission
@@ -53,7 +54,7 @@ export default function BlogPostForm() {
                 setStatus("Error posting blog!");
             }
         } catch (error) {
-            setStatus("Failed to submit blog post. Please try again later.");
+            setStatus(`Failed to submit blog post. Error: ${error.message}`);
         }
     };
 

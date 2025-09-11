@@ -13,7 +13,7 @@ export default function YourPosts() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`${BASE_URL}/api/v1/blog/logged-in-user?page=0&size=5`, {
+        fetch(`${BASE_URL}/api/v1/blog/logged-in-user?page=${currentPage}&size=5`, {
             method: 'GET',
             credentials: 'include',
             headers: {

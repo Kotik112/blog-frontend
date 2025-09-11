@@ -15,7 +15,7 @@ export function useAuth() {
 }
 
 /**
- * Check if current user has a specific role.
+ * Check if the current user has a specific role.
  * @param {string} role
  * @returns {boolean}
  */

@@ -3,6 +3,15 @@ import {BASE_URL} from "../../utils/config.js";
 import {ROUTES} from "../../constants/Routes.js";
 import PropTypes from "prop-types";
 
+/**
+ * @typedef {Object} AuthContextValue
+ * @property {any} user
+ * @property {(userData:any) => void} login
+ * @property {() => Promise<void>} logout
+ * @property {boolean} loading
+ */
+
+/** @type {React.Context<AuthContextValue>} */
 export const AuthContext = createContext({
     user: null,
     login: () => {},

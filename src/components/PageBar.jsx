@@ -23,10 +23,10 @@ export default function PageBar({ currentPage, totalPages, goToPage}) {
         <div className="fixed bottom-0 w-full bg-[#C0D6DF] dark:bg-gray-800 shadow-lg py-4 px-6">
             <div className="flex flex-col items-center">
                 <span className="text-sm text-gray-700 dark:text-gray-400">
-                    Showing
-                    <span className="font-semibold text-gray-900 dark:text-white">  {currentPage}</span> to
-                    <span className="font-semibold text-gray-900 dark:text-white"> {Math.min(currentPage + 10, totalPages)}</span> of
-                    <span className="font-semibold text-gray-900 dark:text-white"> {totalPages}</span> Pages
+                    Showing{" "}
+                    <span className="font-semibold text-gray-900 dark:text-white">{currentPage}</span>{" "}to{" "}
+                    <span className="font-semibold text-gray-900 dark:text-white"> {Math.min(currentPage + 10, totalPages)}</span>{" "}of{" "}
+                    <span className="font-semibold text-gray-900 dark:text-white"> {totalPages}</span>{" "}Pages
                 </span>
                 <div className="inline-flex mt-2 xs:mt-0">
                     <button
